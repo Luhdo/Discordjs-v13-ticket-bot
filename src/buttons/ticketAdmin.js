@@ -25,14 +25,14 @@ module.exports = {
     });
 
     interaction.reply({
-      content: "**تیکت به حالت ادمین تغییر یافت.**",
+      content: "**Ticket  has been changed to admin only**",
       ephemeral: true,
     });
 
     interaction.channel.send({
       embeds: [
         {
-          description: `تیکت توسط <@${interaction.member.id}> به حالت ادمین تغییر یافت.`,
+          description: `ticket state has been changed to AdminOnly mode by :<@${interaction.member.id}> `,
           timestamp: new Date(),
         },
       ],

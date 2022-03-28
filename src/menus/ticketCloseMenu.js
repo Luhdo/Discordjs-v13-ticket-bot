@@ -35,7 +35,7 @@ module.exports = {
         interaction.channel.send({
           embeds: [
             {
-              description: `تیکت توسط <@${interaction.member.id}> بسته شد.`,
+              description: `Ticket has been closed by: <@${interaction.member.id}>.`,
               timestamp: new Date(),
             },
           ],
@@ -45,7 +45,7 @@ module.exports = {
               components: [
                 {
                   type: "BUTTON",
-                  label: "حذف تیکت",
+                  label: "Delete Ticket",
                   customId: "ticketDelete",
                   style: "DANGER",
                   emoji: "⛔",
@@ -54,7 +54,7 @@ module.exports = {
                 },
                 {
                   type: "BUTTON",
-                  label: "سیو کردن تیکت",
+                  label: "Save Ticket",
                   customId: "ticketSave",
                   style: "PRIMARY",
                   emoji: "📑",
@@ -63,12 +63,46 @@ module.exports = {
                 },
                 {
                   type: "BUTTON",
-                  label: "باز کردن تیکت",
+                  label: "Reopen Ticket",
                   customId: "ticketReopen",
                   style: "SECONDARY",
                   emoji: "🔓",
                   url: null,
                   disabled: false,
+                },
+              ],
+            },
+          ],
+        });
+
+        await interaction.editReply({
+          content: "Ticket has been closed.",
+          ephemeral: true,
+          components: [
+            {
+              type: "ACTION_ROW",
+              components: [
+                {
+                  type: "SELECT_MENU",
+                  customId: "ticketCloseMenu",
+                  placeholder: "Please choose an option...",
+                  minValues: null,
+                  maxValues: null,
+                  options: [
+                    {
+                      label: "Yes, close the ticket",
+                      value: "ticketCloseYes",
+                      emoji: "✅",
+                      default: true,
+                    },
+                    {
+                      label: "No, don't close the ticket",
+                      value: "ticketCloseNo",
+                      emoji: "❌",
+                      default: false,
+                    },
+                  ],
+                  disabled: true,
                 },
               ],
             },

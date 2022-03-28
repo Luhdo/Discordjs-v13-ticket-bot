@@ -11,6 +11,7 @@ const config = {
   ids: {
     ticketCategory: "793455524746100766",
     ticketChannel: "854044194401419318",
+    modsRole: "797728539860008991",
   },
 };
 

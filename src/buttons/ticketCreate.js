@@ -31,16 +31,12 @@ module.exports = {
     });
 
     const MSG = await Channel.send({
-      content: `خوش اومدید <@${interaction.member.id}> ، <@ffe0e6>`,
+      content: `Welcome <@${interaction.member.id}> ، <@${config.ids.modsRole}>`,
       embeds: [
         {
-          description: `اگر کارتون تموم شده و دیگه نیازی به کمک ما ندارید میتونید بر روی دکمه ی **{Close Ticket🔒}** کلیک کنید تا تیکت بسته بشه
-
-اگر میخواهید که توی این تیکت فقط با اونر این سرور صحبت بکنید ومادریتورها به این تیکت دسترسی نداشته باشند بر روی دکمه ی **{:shield: Admin Only Ticket}** کلیک کنید`,
+          description: `Soon a <@${config.ids.modsRole}> will talk to you! For now, you can start telling us what's the issue, so that we can help you faster! :)
+In case you dont need help anymore, or you want to close this ticket, click on the 🔒 and then on the ✅ that will show up!`,
           color: "#ffe0e6",
-          author: {
-            name: "به زودی یک مادریتور با شما صحبت خواهد کرد؛ شما از الان میتونید مشکل خودتون رو بیان کنید تا ما بتونیم سریعتر بهتون کمک کنیم!",
-          },
         },
       ],
       components: [

@@ -6,7 +6,7 @@ module.exports = {
     if (interaction.channel.name.split("-")[1] !== "ticket") return;
 
     interaction.reply({
-      content: "**آیا از بستن تیکت اطمینان دارید؟**",
+      content: "**Are you sure you want to close this ticket?**",
       ephemeral: true,
       components: [
         {
@@ -15,18 +15,18 @@ module.exports = {
             {
               type: "SELECT_MENU",
               customId: "ticketCloseMenu",
-              placeholder: "لطفا یک گزینه را انتخاب کنید...",
+              placeholder: "Please select an option...",
               minValues: null,
               maxValues: null,
               options: [
                 {
-                  label: "بله! تیکت رو ببند!",
+                  label: "Yes, close the ticket!",
                   value: "ticketCloseYes",
                   emoji: "✅",
                   default: false,
                 },
                 {
-                  label: "نه، تیکت رو نبند!",
+                  label: "Noo, don't close this ticket!",
                   value: "ticketCloseNo",
                   emoji: "❌",
                   default: false,

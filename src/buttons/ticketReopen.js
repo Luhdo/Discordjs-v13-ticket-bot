@@ -29,7 +29,7 @@ module.exports = {
     await interaction.editReply({
       embeds: [
         {
-          description: `🔓 **تیکت توسط <@${interaction.member.id}>** باز شد.`,
+          description: `🔓 **Ticket has been reopened by: <@${interaction.member.id}>**.`,
           timestamp: new Date(),
         },
       ],
