@@ -9,9 +9,9 @@ const config = {
     message: require("./message.json"),
   },
   ids: {
-    ticketCategory: "793455524746100766",
-    ticketChannel: "854044194401419318",
-    modsRole: "797728539860008991",
+    ticketCategory: "793455524746100766", // category Id which tickets will get created
+    ticketChannel: "854044194401419318", // Channel Id which ticket create message is sent
+    modsRole: "797728539860008991", // role Id which gets mentioned when a new ticket gets created
   },
 };
 
