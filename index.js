@@ -2,7 +2,7 @@ const ora = require("ora");
 const config = require("./config");
 const fs = require("fs");
 
-const { Client, Collection, WebhookClient } = require("discord.js");
+const { Client, Collection } = require("discord.js");
 
 const intentsLoader = ora("Registering Intents").start();
 
@@ -18,10 +18,8 @@ if (!Array.isArray(config.bot.intents)) {
 }
 
 const client = new Client({ intents: finalIntents });
-const Webhook = new WebhookClient({ url: config.webhook.url });
 
 module.exports.client = client;
-module.exports.Webhook = Webhook;
 module.exports.config = config;
 module.exports.db = require("./src/util/functions.js");
 

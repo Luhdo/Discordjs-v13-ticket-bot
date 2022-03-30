@@ -35,7 +35,7 @@ module.exports = {
       embeds: [
         {
           description: `Soon a <@${config.ids.modsRole}> will talk to you! For now, you can start telling us what's the issue, so that we can help you faster! :)
-In case you dont need help anymore, or you want to close this ticket, click on the 🔒 and then on the ✅ that will show up!`,
+          In case you dont need help anymore, or you want to close this ticket, click on the 🔒 and then on the ✅ that will show up!`,
           color: "#ffe0e6",
         },
       ],

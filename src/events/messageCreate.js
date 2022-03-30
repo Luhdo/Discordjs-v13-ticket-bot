@@ -1,4 +1,4 @@
-const { client, config, Webhook } = require("../../index.js");
+const { client, config } = require("../../index.js");
 
 module.exports = {
   event: "messageCreate",
