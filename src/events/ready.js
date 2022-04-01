@@ -28,7 +28,20 @@ module.exports = {
       },
     ];
 
-    await client.channels.cache.get(config.ids.ticketChannel).send(msg);
+    let message = await client.channels.cache
+      .get(config.ids.ticketChannel)
+      .send(msg);
+
+    msg.id = message.id;
+    console.log(msg);
+    fs.writeFileSync(
+      "../../message.json",
+      JSON.stringify(msg),
+      "utf-8",
+      (err) => {
+        if (err) console.log(err);
+      }
+    );
 
     // MENUS
     const menuFiles = fs
