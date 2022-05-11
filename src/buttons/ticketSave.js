@@ -1,4 +1,5 @@
 const { client, config } = require("../../index.js");
+const fs = require("fs");
 
 module.exports = {
   data: { name: "ticketSave" },
@@ -7,12 +8,20 @@ module.exports = {
 
     // await interaction.deferReply({ ephemeral: false });
     let TheArray = [];
-    await interaction.channel.messages.cache.map((msg) => TheArray.push(msg));
-
-    let Final = TheArray.map((message) => {
-      message;
+    await interaction.channel.messages.cache.map((msg) => {
+      let message = {
+        author: msg.author.tag,
+        content: msg.content || "",
+        time: msg.createdAt,
+      };
+      let string = `${message.author} : ${message.content} | ${message.time}`;
+      TheArray.push(string);
     });
 
-    console.log(Final);
+    fs.writeFileSync(
+      `./Database/${interaction.channel.name}.txt`,
+      TheArray.join("\n________________\n"),
+      { encoding: "utf-8" }
+    );
   },
 };

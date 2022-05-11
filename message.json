@@ -2,19 +2,29 @@
   "content": "dmawdladaw",
   "embeds": [
     {
-      "title": "fdawad",
-      "description": "dwaadwaw",
+      "title": "Hello Darkness",
+      "description": "My old friend",
       "color": 16060432,
-      "fields": [
-        {
-          "name": ".,.",
-          "value": "..."
-        }
-      ],
-      "author": {
-        "name": "dddddddd"
-      },
+      "fields": [{ "name": ".,.", "value": "..." }],
+      "author": { "name": "dddddddd" },
       "timestamp": "2022-03-27T18:56:00.000Z"
     }
-  ]
+  ],
+  "components": [
+    {
+      "type": "ACTION_ROW",
+      "components": [
+        {
+          "type": "BUTTON",
+          "label": "",
+          "customId": "ticketCreate",
+          "style": "SUCCESS",
+          "emoji": "📩",
+          "url": null,
+          "disabled": false
+        }
+      ]
+    }
+  ],
+  "id": "974008547580973126"
 }

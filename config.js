@@ -4,7 +4,11 @@ require("dotenv").config();
 const config = {
   bot: {
     token: process.env.token,
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS],
+    intents: [
+      Intents.FLAGS.GUILDS,
+      Intents.FLAGS.GUILD_MEMBERS,
+      Intents.FLAGS.GUILD_MESSAGES,
+    ],
     guildId: "854044193811202108",
     message: require("./message.json"),
   },

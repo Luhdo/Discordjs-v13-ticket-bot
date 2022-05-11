@@ -59,7 +59,7 @@ module.exports = {
                   style: "PRIMARY",
                   emoji: "📑",
                   url: null,
-                  disabled: true,
+                  disabled: false,
                 },
                 {
                   type: "BUTTON",

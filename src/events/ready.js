@@ -11,37 +11,42 @@ module.exports = {
     botLoader.succeed(`${client.user.tag} Started`);
 
     let msg = config.bot.message;
-    msg.components = [
-      {
-        type: "ACTION_ROW",
-        components: [
-          {
-            type: "BUTTON",
-            label: "",
-            customId: "ticketCreate",
-            style: "SUCCESS",
-            emoji: "📩",
-            url: null,
-            disabled: false,
-          },
-        ],
-      },
-    ];
+    if (msg.id) {
+      let Channel = await client.channels.fetch(config.ids.ticketChannel);
+      let Message = await Channel.messages.fetch(msg.id);
+      Message.edit(msg);
+    } else {
+      msg.components = [
+        {
+          type: "ACTION_ROW",
+          components: [
+            {
+              type: "BUTTON",
+              label: "",
+              customId: "ticketCreate",
+              style: "SUCCESS",
+              emoji: "📩",
+              url: null,
+              disabled: false,
+            },
+          ],
+        },
+      ];
 
-    let message = await client.channels.cache
-      .get(config.ids.ticketChannel)
-      .send(msg);
+      let message = await client.channels.cache
+        .get(config.ids.ticketChannel)
+        .send(msg);
 
-    msg.id = message.id;
-    console.log(msg);
-    fs.writeFileSync(
-      "../../message.json",
-      JSON.stringify(msg),
-      "utf-8",
-      (err) => {
-        if (err) console.log(err);
-      }
-    );
+      msg.id = message.id;
+      fs.writeFileSync(
+        "./message.json",
+        JSON.stringify(msg),
+        "utf-8",
+        (err) => {
+          if (err) console.log(err);
+        }
+      );
+    }
 
     // MENUS
     const menuFiles = fs
