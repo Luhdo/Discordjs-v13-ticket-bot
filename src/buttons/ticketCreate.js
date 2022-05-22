@@ -1,14 +1,23 @@
 const { Permissions } = require("discord.js");
-const { client, config } = require("../../index.js");
+const { client, config, Webhook } = require("../../index.js");
+const fs = require("fs");
 
 module.exports = {
   data: { name: "ticketCreate" },
   run: async (interaction) => {
     await interaction.deferReply({ ephemeral: true });
+    let DataBase = JSON.parse(fs.readFileSync("./Database/tickets.json"));
+
+    if (DataBase[interaction.user.id]?.channel)
+      return interaction.editReply({
+        content: `شما هم اکنون یک تیکت باز دارید,\n<:right:899620946992857148> <#${
+          DataBase[interaction.user.id].channel
+        }>`,
+      });
 
     const num = Math.round(Math.random() * 100 + 1);
     const Channel = await interaction.guild.channels.create(
-      `${num}-ticket-${interaction.member.displayName.split(" ").join("")}`,
+      `${num}-ticket-${interaction.member.user.username.split(" ").join("")}`,
       {
         reason: `Ticket created by ${interaction.user.tag}`,
         type: "GUILD_TEXT",
@@ -31,12 +40,16 @@ module.exports = {
     });
 
     const MSG = await Channel.send({
-      content: `Welcome <@${interaction.member.id}> ، <@${config.ids.modsRole}>`,
+      content: `خوش اومدید <@${interaction.member.id}> ، <@&968917259722575883><@&968917311555768432>`,
       embeds: [
         {
-          description: `Soon a <@${config.ids.modsRole}> will talk to you! For now, you can start telling us what's the issue, so that we can help you faster! :)
-          In case you dont need help anymore, or you want to close this ticket, click on the 🔒 and then on the ✅ that will show up!`,
+          description: `اگر کارتون تموم شده و دیگه نیازی به کمک ما ندارید میتونید بر روی دکمه ی **{Close Ticket🔒}** کلیک کنید تا تیکت بسته بشه
+
+اگر میخواهید که توی این تیکت فقط با اونر این سرور صحبت بکنید ومادریتورها به این تیکت دسترسی نداشته باشند بر روی دکمه ی **{:shield: Admin Only Ticket}** کلیک کنید`,
           color: "#ffe0e6",
+          author: {
+            name: "به زودی یک مادریتور با شما صحبت خواهد کرد؛ شما از الان میتونید مشکل خودتون رو بیان کنید تا ما بتونیم سریعتر بهتون کمک کنیم!",
+          },
         },
       ],
       components: [
@@ -77,8 +90,58 @@ module.exports = {
     await MSG.pin();
 
     await interaction.editReply({
-      content: `Ticket has been created, <#${Channel.id}>`,
+      content: `تیکت شما ایجاد شد, <#${Channel.id}>`,
       ephemeral: true,
     });
+
+    let msg = await client.channels.cache
+      .get(config.ids.ticket.logChannel)
+      .send({
+        embeds: [
+          {
+            color: "#00aa00",
+            title: `تیکت ایجاد شده توسط: ${interaction.user.tag}`,
+            fields: [
+              {
+                name: "شخص بن شده",
+                value: `${interaction.member.roles.cache.has(
+                  config.ids.handCuffRole
+                )} `,
+              },
+            ],
+          },
+        ],
+        components: [
+          {
+            type: "ACTION_ROW",
+            components: [
+              {
+                type: "BUTTON",
+                label: "وضعیت: باز",
+                customId: "ticketIsOpen",
+                style: "SUCCESS",
+                emoji: "✔",
+                url: null,
+                disabled: true,
+              },
+              {
+                type: "BUTTON",
+                label: "رفتن به تیکت",
+                style: "LINK",
+                url: MSG.url,
+                disabled: false,
+              },
+            ],
+          },
+        ],
+      });
+
+    DataBase[interaction.user.id] = { channel: Channel.id };
+    DataBase[interaction.user.id].message = msg.id;
+    fs.writeFileSync(
+      "./Database/tickets.json",
+      JSON.stringify(DataBase),
+      "utf-8"
+    );
   },
 };

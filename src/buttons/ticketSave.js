@@ -20,7 +20,7 @@ module.exports = {
 
     fs.writeFileSync(
       `./Database/${interaction.channel.name}.txt`,
-      TheArray.join("\n________________\n"),
+      TheArray.join("\n_____________________________\n"),
       { encoding: "utf-8" }
     );
   },
