@@ -33,21 +33,42 @@ The Discord v13 Ticket Bot is a ticketing system written in Node.js using the di
 npm install
 ```
 
+3. Create an `.env` file in the root directory of the project and add your Discord bot token:
+
+```plaintext
+token=YOUR_DISCORD_BOT_TOKEN
+```
+
+Replace `YOUR_DISCORD_BOT_TOKEN` with the actual token of your Discord bot, which you can obtain from the Discord Developer Portal.
+
 ## Configuration
 
 Before running the bot, you need to configure the `config.js` file:
 
 ```js
-module.exports = {
-  token: 'YOUR_DISCORD_BOT_TOKEN',
-  channelId: 'YOUR_TEXT_CHANNEL_ID',
-  ticketCategoryId: 'YOUR_TICKET_CATEGORY_ID',
+module.exports = { 
+  bot: { 
+    token: process.env.token, 
+    intents: [ 
+      Intents.FLAGS.GUILDS, 
+      Intents.FLAGS.GUILD_MEMBERS, 
+      Intents.FLAGS.GUILD_MESSAGES, 
+    ], 
+    guildId: "YOUR_SERVER_ID", 
+    message: require("./message.json"), 
+  }, 
+  ids: { 
+    ticketCategory: "YOUR_TICKET_CATEGORY_ID", // category Id which tickets will get created 
+    ticketChannel: "YOUR_TICKET_CHANNEL_ID", // Channel Id which ticket create message is sent 
+    modsRole: "YOUR_MODS_ROLE_ID", // role Id which gets mentioned when a new ticket gets created 
+  }, 
 };
 ```
 
-- Replace `YOUR_DISCORD_BOT_TOKEN` with your bot's token, which you can obtain from the Discord Developer Portal.
-- Set `YOUR_TEXT_CHANNEL_ID` to the ID of the text channel where the bot will send the initial ticket creation message.
-- Set `YOUR_TICKET_CATEGORY_ID` to the ID of the category where the bot will create new ticket channels.
+- Replace `YOUR_SERVER_ID` with the ID of your Discord server (guild).
+- Replace `YOUR_TICKET_CATEGORY_ID` with the ID of the category where the bot will create new ticket channels.
+- Replace `YOUR_TICKET_CHANNEL_ID` with the ID of the text channel where the bot will send the initial ticket creation message.
+- Replace `YOUR_MODS_ROLE_ID` with the ID of the role that should be mentioned when a new ticket is created.
 
 ## Usage
 
@@ -79,9 +100,9 @@ Ticket admins are dynamically assigned based on the category permissions. To cha
 
 To ensure the bot functions correctly, the bot should have the following permissions:
 
-- Read and Send Messages in the text channel specified in `config.js` (channelId).
-- Create Channels in the category specified in `config.js` (ticketCategoryId).
-- Manage Channels in the ticket category to assign ticket admins dynamically.
+- Read and Send Messages in the text channel specified in `config.js` (ticketChannel).
+- Create Channels in the category specified in `config.js` (ticketCategory).
+- Mention the role specified in `config.js` (modsRole) when creating a new ticket.
 
 ## Contributing
 
